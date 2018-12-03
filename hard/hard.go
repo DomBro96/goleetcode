@@ -1,7 +1,5 @@
 package heard
 
-import "runtime/debug"
-
 type ListNode struct {
 	Val  int
 	Next *ListNode
@@ -103,6 +101,22 @@ func ReverseSlice(nums []int) {
 	}
 }
 
+//32. Longest Valid Parentheses
 func LongestValidParentheses(s string) int {
-
+	last := 0
+	longest := 0
+	m := make(map[int]int)
+	for i := 0; i < len(s); i++ {
+		if i != 0 && s[i] == ')' && s[i-1] == '(' {
+			if last == i-2 {
+				m[i] = m[i-2] + 1
+			} else {
+				m[i] = 1
+			}
+		}
+		if m[i] > longest {
+			longest = m[i]
+		}
+	}
+	return longest
 }

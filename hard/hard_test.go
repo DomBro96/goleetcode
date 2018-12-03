@@ -34,3 +34,10 @@ func TestNextPermutation(t *testing.T) {
 	fmt.Println(nums1)
 	fmt.Println(nums2)
 }
+
+func TestLongestValidParentheses(t *testing.T) {
+	s := "(()"
+	fmt.Println(LongestValidParentheses(s))
+	s1 := ")()())"
+	fmt.Println(LongestValidParentheses(s1))
+}
