@@ -40,4 +40,8 @@ func TestLongestValidParentheses(t *testing.T) {
 	fmt.Println(LongestValidParentheses(s))
 	s1 := ")()())"
 	fmt.Println(LongestValidParentheses(s1))
+	s2 := ")(()()))"
+	fmt.Println(LongestValidParentheses(s2))
+	s3 := "())"
+	fmt.Println(LongestValidParentheses(s3))
 }

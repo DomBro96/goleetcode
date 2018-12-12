@@ -101,22 +101,80 @@ func ReverseSlice(nums []int) {
 	}
 }
 
+type Stack []int
+
+func (stack Stack) Len() int {
+
+	return len(stack)
+}
+
+func (stack Stack) Cap() int {
+	return cap(stack)
+}
+
+func (stack *Stack) Push(value int) {
+	*stack = append(*stack, value)
+}
+
+func (stack Stack) Top() int {
+	if len(stack) == 0 {
+		return -1
+	}
+	return stack[len(stack)-1]
+}
+
+func (stack *Stack) Pop() int {
+	theStack := *stack
+	if len(theStack) == 0 {
+		return -1
+	}
+	value := theStack[len(theStack)-1]
+	*stack = theStack[:len(theStack)-1]
+	return value
+}
+
+func (stack Stack) isEmpty() bool {
+	return len(stack) == 0
+}
+
 //32. Longest Valid Parentheses
 func LongestValidParentheses(s string) int {
-	last := 0
+	n := len(s)
 	longest := 0
-	m := make(map[int]int)
-	for i := 0; i < len(s); i++ {
-		if i != 0 && s[i] == ')' && s[i-1] == '(' {
-			if last == i-2 {
-				m[i] = m[i-2] + 1
+	var stack Stack
+	for i := 0; i < n; i++ {
+		if s[i] == '(' {
+			stack.Push(i)
+		} else {
+			if !stack.isEmpty() {
+				if s[stack.Top()] == '(' {
+					stack.Pop()
+				} else {
+					stack.Push(i)
+				}
 			} else {
-				m[i] = 1
+				stack.Push(i)
 			}
 		}
-		if m[i] > longest {
-			longest = m[i]
+	}
+	if stack.isEmpty() {
+		longest = n
+	} else {
+		a := n
+		b := 0
+		for !stack.isEmpty() {
+			b = stack.Pop()
+			longest = max(longest, a-b-1)
+			a = b
 		}
+		longest = max(longest, a)
 	}
 	return longest
+}
+
+func max(x, y int) int {
+	if x >= y {
+		return x
+	}
+	return y
 }
