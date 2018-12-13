@@ -19,3 +19,9 @@ func TestSearch(t *testing.T) {
 	nums1 := []int{0}
 	fmt.Println(Search(nums1, 1))
 }
+
+func TestSearchRange(t *testing.T) {
+	nums := []int{1, 2, 3, 3, 4, 5}
+	fmt.Println(SearchRange(nums, 3))
+	fmt.Println(SearchRange(nums, 9))
+}

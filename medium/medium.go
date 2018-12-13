@@ -65,3 +65,35 @@ func BinSearch(nums []int, target int) int {
 	}
 	return -1
 }
+
+// 34 Find First and Last Position of Element in Sorted Array
+func SearchRange(nums []int, target int) []int {
+	if len(nums) < 1 {
+		return []int{-1, -1}
+	}
+	begin := 0
+	end := len(nums) - 1
+	first := -1
+	last := -1
+	for end >= begin {
+		mid := (begin + end) / 2
+		if nums[mid] > target {
+			end = mid - 1
+		} else if nums[mid] < target {
+			begin = mid + 1
+		} else {
+			first = mid
+			last = mid
+			for first >= 0 && nums[first] == target {
+				first--
+			}
+			first++
+			for last <= len(nums)-1 && nums[last] == target {
+				last++
+			}
+			last--
+			break
+		}
+	}
+	return []int{first, last}
+}
