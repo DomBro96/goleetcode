@@ -145,6 +145,17 @@ func RomanToInt(s string) int {
 
 // 35. Search Insert Position
 func SearchInsert(nums []int, target int) int {
+	if len(nums) < 1 {
+		return 0
+	}
 	nums = append(nums, target)
-
+	j := len(nums) - 1
+	for j > 0 && nums[j-1] > target {
+		j--
+	}
+	nums[j] = target
+	if j > 0 && nums[j-1] == target {
+		return j - 1
+	}
+	return j
 }
