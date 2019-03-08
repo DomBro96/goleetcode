@@ -159,3 +159,32 @@ func SearchInsert(nums []int, target int) int {
 	}
 	return j
 }
+
+// 202. happy number
+func Ishappy(n int) bool {
+	numMap := make(map[int]bool)
+	num := sum(n)
+	for num != 1 {
+		if _, exists := numMap[num]; !exists {
+			numMap[num] = true
+			num = sum(num)
+		} else {
+			break
+		}
+	}
+
+	if num == 1 {
+		return true
+	} else {
+		return false
+	}
+}
+
+func sum(n int) int {
+	sum := 0
+	for n != 0 {
+		sum += (n % 10) * (n % 10)
+		n /= 10
+	}
+	return sum
+}

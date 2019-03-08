@@ -97,3 +97,38 @@ func SearchRange(nums []int, target int) []int {
 	}
 	return []int{first, last}
 }
+
+func IsValidSudoku(board [][]byte) bool {
+
+	for i := 0; i < 9; i++ {
+		rowsMap := make(map[byte]bool, 9)
+		colsMap := make(map[byte]bool, 9)
+		cubeMap := make(map[byte]bool, 9)
+		for j := 0; j < 9; j++ {
+			if board[i][j] != '.' {
+				if _, exists := rowsMap[board[i][j]]; exists {
+					return false
+				} else {
+					rowsMap[board[i][j]] = true
+				}
+			}
+			if board[j][i] != '.' {
+				if _, exists := colsMap[board[j][i]]; exists {
+					return false
+				} else {
+					colsMap[board[j][i]] = true
+				}
+			}
+			rowIndex := 3 * (i / 3)
+			colIndex := 3 * (i % 3)
+			if board[rowIndex+j/3][colIndex+j%3] != '.' {
+				if _, exists := cubeMap[board[rowIndex+j/3][colIndex+j%3]]; exists {
+					return false
+				} else {
+					cubeMap[board[rowIndex+j/3][colIndex+j%3]] = true
+				}
+			}
+		}
+	}
+	return true
+}

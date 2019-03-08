@@ -40,3 +40,9 @@ func TestSearchInsert(t *testing.T) {
 	fmt.Println(SearchInsert(nums, 7))
 	fmt.Println(SearchInsert(nums, 0))
 }
+
+func TestIshappy(t *testing.T) {
+	fmt.Println(Ishappy(19))
+	fmt.Println(Ishappy(4))
+	fmt.Println(Ishappy(20))
+}

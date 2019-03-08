@@ -178,3 +178,46 @@ func max(x, y int) int {
 	}
 	return y
 }
+
+// 37
+func SolveSudoku(board [][]byte) {
+	solve(board)
+}
+
+func solve(board [][]byte) bool {
+	for i := 0; i < len(board); i++ {
+		for j := 0; j < len(board[0]); j++ {
+			if board[i][j] == '.' {
+				var filler byte
+				for filler = '1'; filler <= '9'; filler++ {
+					if isValid(board, i, j, filler) {
+						board[i][j] = filler
+						if solve(board) {
+							return true
+						}
+					}
+				}
+				board[i][j] = '.' // backtracking
+				return false
+			}
+		}
+	}
+	return true
+}
+
+func isValid(board [][]byte, row, col int, filler byte) bool {
+	for i := 0; i < 9; i++ {
+		if board[row][i] == filler {
+			return false
+		}
+		if board[i][col] == filler {
+			return false
+		}
+		rowIndex := 3 * (row / 3)
+		colIndex := 3 * (col / 3)
+		if board[rowIndex+i/3][colIndex+i%3] == filler {
+			return false
+		}
+	}
+	return true
+}
