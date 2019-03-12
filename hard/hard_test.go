@@ -62,3 +62,15 @@ func TestSolveSudoku(t *testing.T) {
 	SolveSudoku(input)
 	fmt.Println(input)
 }
+
+func TestFirstMissingPositive(t *testing.T) {
+	input := []int{1, 2, 0}
+	input1 := []int{3, 4, -1, 1}
+	input2 := []int{7, 8, 9, 11, 12}
+	input3 := []int{2, 1}
+	fmt.Println(FirstMissingPositive(input))
+	fmt.Println(FirstMissingPositive(input1))
+	fmt.Println(FirstMissingPositive(input2))
+	fmt.Println(FirstMissingPositive(input3))
+
+}

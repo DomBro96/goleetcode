@@ -46,3 +46,14 @@ func TestIshappy(t *testing.T) {
 	fmt.Println(Ishappy(4))
 	fmt.Println(Ishappy(20))
 }
+
+func TestMissingNumber(t *testing.T) {
+	input := []int{3, 0, 1}
+	input1 := []int{9, 6, 4, 2, 3, 5, 7, 0, 1}
+	input2 := []int{1}
+	input3 := []int{0}
+	fmt.Println(MissingNumber(input))
+	fmt.Println(MissingNumber(input1))
+	fmt.Println(MissingNumber(input2))
+	fmt.Println(MissingNumber(input3))
+}

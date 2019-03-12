@@ -188,3 +188,39 @@ func sum(n int) int {
 	}
 	return sum
 }
+
+// 268. Missing Number
+func MissingNumber(nums []int) int {
+	if len(nums) == 0 || nums == nil {
+		return 0
+	}
+	start := 0
+	end := len(nums)
+	result := 0
+	// binary search
+	for {
+		if start == end {
+			result = start
+			break
+		}
+		middle := (start + end) / 2
+		if countNum(nums, start, middle) == middle-start+1 {
+			start = middle + 1
+		} else {
+			end = middle
+		}
+
+	}
+	return result
+}
+
+// count range start to end
+func countNum(nums []int, start, end int) int {
+	count := 0
+	for i := 0; i < len(nums); i++ {
+		if nums[i] >= start && nums[i] <= end {
+			count++
+		}
+	}
+	return count
+}

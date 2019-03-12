@@ -132,3 +132,33 @@ func IsValidSudoku(board [][]byte) bool {
 	}
 	return true
 }
+
+// 287
+func FindDuplicate(nums []int) int {
+	start := 1
+	end := len(nums) - 1
+	result := 0
+	for {
+		if start == end {
+			result = start
+			break
+		}
+		middle := (start + end) / 2
+		if countNum(nums, start, middle) > middle-start+1 {
+			end = middle
+		} else {
+			start = middle + 1
+		}
+	}
+	return result
+}
+
+func countNum(nums []int, start, end int) int {
+	count := 0
+	for i := 0; i < len(nums); i++ {
+		if nums[i] >= start && nums[i] <= end {
+			count++
+		}
+	}
+	return count
+}

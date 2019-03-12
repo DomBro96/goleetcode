@@ -41,3 +41,10 @@ func TestIsValidSudoku(t *testing.T) {
 	is := IsValidSudoku(input)
 	fmt.Println(is)
 }
+
+func TestFindDuplicate(t *testing.T) {
+	input := []int{1, 3, 4, 2, 2}
+	input1 := []int{3, 1, 3, 4, 2}
+	fmt.Println(FindDuplicate(input))
+	fmt.Println(FindDuplicate(input1))
+}

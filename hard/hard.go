@@ -1,5 +1,7 @@
 package heard
 
+import "sort"
+
 type ListNode struct {
 	Val  int
 	Next *ListNode
@@ -220,4 +222,19 @@ func isValid(board [][]byte, row, col int, filler byte) bool {
 		}
 	}
 	return true
+}
+
+// 41
+func FirstMissingPositive(nums []int) int {
+	if len(nums) < 1 || nums == nil {
+		return 1
+	}
+	sort.Ints(nums)
+	min := 1
+	for i := 0; i < len(nums); i++ {
+		if nums[i] > 0 && nums[i] == min {
+			min++
+		}
+	}
+	return min
 }
