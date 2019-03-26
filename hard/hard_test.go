@@ -74,3 +74,22 @@ func TestFirstMissingPositive(t *testing.T) {
 	fmt.Println(FirstMissingPositive(input3))
 
 }
+
+func TestTrap(t *testing.T) {
+	height := []int{0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1}
+	fmt.Println(Trap(height))
+	height1 := []int{2, 0, 2}
+	fmt.Println(Trap(height1))
+	height2 := []int{4, 2, 3}
+	fmt.Println(Trap(height2))
+}
+
+func TestIsMatch(t *testing.T) {
+	fmt.Println(IsMatch("aa", "a"))
+	fmt.Println(IsMatch("aa", "*"))
+	fmt.Println(IsMatch("cb", "?a"))
+	fmt.Println(IsMatch("adceb", "*a*b"))
+	fmt.Println(IsMatch("acdcb", "a*c?b"))
+	fmt.Println(IsMatch("ab", "?*"))
+
+}

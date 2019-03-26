@@ -1,6 +1,8 @@
 package heard
 
-import "sort"
+import (
+	"sort"
+)
 
 type ListNode struct {
 	Val  int
@@ -237,4 +239,67 @@ func FirstMissingPositive(nums []int) int {
 		}
 	}
 	return min
+}
+
+// 42
+func Trap(height []int) int {
+	if len(height) == 0 || height == nil {
+		return 0
+	}
+	leftIndex, rightIndex := 0, len(height)-1
+	leftMax, rightMax, result := height[leftIndex], height[rightIndex], 0
+	for leftIndex < rightIndex {
+		if leftMax <= rightMax {
+			leftIndex++
+			if height[leftIndex] < leftMax {
+				result += leftMax - height[leftIndex]
+			} else {
+				leftMax = height[leftIndex]
+			}
+		} else {
+			rightIndex--
+			if height[rightIndex] < rightMax {
+				result += rightMax - height[rightIndex]
+			} else {
+				rightMax = height[rightIndex]
+			}
+		}
+	}
+	return result
+}
+
+// 44 dynamic programming
+func IsMatch(s string, p string) bool {
+	if len(s) == 0 && len(p) == 0 {
+		return true
+	}
+	if len(s) > 0 && len(p) == 0 {
+		return false
+	}
+	var dp [][]bool
+	for i := 0; i <= len(s); i++ {
+		dp = append(dp, make([]bool, len(p)+1))
+	}
+	// initialization memo
+	dp[0][0] = true
+	for i := 1; i <= len(p); i++ {
+		if p[i-1] != '*' {
+			dp[0][i] = false
+		} else {
+			dp[0][i] = dp[0][i-1]
+		}
+	}
+	for i := 1; i <= len(s); i++ {
+		for j := 1; j <= len(p); j++ {
+			if s[i-1] == p[j-1] || p[j-1] == '?' {
+				dp[i][j] = dp[i-1][j-1]
+			} else if p[j-1] == '*' {
+				// dp[i - 1][j]: '*' match n time; dp[i][j - 1]: '*' match 0 time;
+				dp[i][j] = dp[i-1][j] || dp[i][j-1]
+			} else {
+				dp[i][j] = false
+			}
+		}
+	}
+	return dp[len(s)][len(p)]
 }
