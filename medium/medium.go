@@ -1,5 +1,7 @@
 package medium
 
+import "fmt"
+
 // 33. Search in Rotated Sorted Array
 func Search(nums []int, target int) int {
 	n := len(nums)
@@ -161,4 +163,24 @@ func countNum(nums []int, start, end int) int {
 		}
 	}
 	return count
+}
+
+//62 Unique Paths
+func UniquePaths(m int, n int) int {
+	result := 0
+	doUniquePaths(n, m, 0, 0, m*n-1, &result)
+	return result
+}
+
+func doUniquePaths(rows, cols, row, col, finish int, res *int) {
+	if row == rows || col == cols {
+		return
+	}
+	if (row*cols + col) == finish {
+		*res++
+		fmt.Printf("row: %d, col: %d, finish: %d\n", row, col, finish)
+		return
+	}
+	doUniquePaths(rows, cols, row+1, col, finish, res)
+	doUniquePaths(rows, cols, row, col+1, finish, res)
 }

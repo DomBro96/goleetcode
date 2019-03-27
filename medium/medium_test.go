@@ -48,3 +48,8 @@ func TestFindDuplicate(t *testing.T) {
 	fmt.Println(FindDuplicate(input))
 	fmt.Println(FindDuplicate(input1))
 }
+
+func TestUniquePaths(t *testing.T) {
+	fmt.Println(UniquePaths(3, 2))
+	fmt.Println(UniquePaths(7, 3))
+}
