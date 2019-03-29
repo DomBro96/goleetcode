@@ -2,6 +2,7 @@ package heard
 
 import (
 	"sort"
+	"strings"
 )
 
 type ListNode struct {
@@ -302,4 +303,66 @@ func IsMatch(s string, p string) bool {
 		}
 	}
 	return dp[len(s)][len(p)]
+}
+
+// 72 Edit Distance
+func MinDistance(word1 string, word2 string) int {
+	if word1 == "" {
+		return len(word2)
+	}
+	if word2 == "" {
+		return len(word1)
+	}
+	dp := make([][]int, 0)
+	for i := 0; i <= len(word1); i++ {
+		dp = append(dp, make([]int, len(word2)+1))
+	}
+	dp[0][0] = 0
+	for i := 1; i <= len(word1); i++ {
+		dp[i][0] = i
+	}
+	for j := 1; j <= len(word2); j++ {
+		dp[0][j] = j
+	}
+	return doMinDistance(word1, word2, dp)
+}
+
+func doMinDistance(word1, word2 string, dp [][]int) int {
+	for i := 1; i <= len(word1); i++ {
+		for j := 1; j <= len(word2); j++ {
+			if i == j {
+				if word1[i-1] == word2[j-1] {
+					dp[i][j] = dp[i-1][j-1]
+				} else {
+					dp[i][j] = dp[i-1][j-1] + 1
+				}
+			} else if i < j {
+				if word1[i-1] == word2[j-1] {
+					dp[i][j] = dp[i-1][j-1]
+				} else if i == 1 && strings.ContainsRune(word2, rune(word1[i-1])) {
+					dp[i][j] = min(j-i, dp[i][j-1]+1)
+				} else {
+					dp[i][j] = dp[i][j-1] + 1
+				}
+			} else if j > i {
+				if word1[i-1] == word2[j-1] {
+					dp[i][j] = dp[i-1][j-1]
+				} else if j == 1 && strings.ContainsRune(word1, rune(word2[j-1])) {
+					dp[i][j] = min(i-j, dp[i-1][j]+1)
+				} else {
+					dp[i][j] = dp[i-1][j] + 1
+				}
+			}
+		}
+
+	}
+	return dp[len(word1)][len(word2)]
+}
+
+func min(a, b int) int {
+	if a <= b {
+		return a
+	} else {
+		return b
+	}
 }

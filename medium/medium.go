@@ -1,6 +1,8 @@
 package medium
 
-import "fmt"
+import (
+	"fmt"
+)
 
 // 33. Search in Rotated Sorted Array
 func Search(nums []int, target int) int {
@@ -167,11 +169,34 @@ func countNum(nums []int, start, end int) int {
 
 //62 Unique Paths
 func UniquePaths(m int, n int) int {
-	result := 0
-	doUniquePaths(n, m, 0, 0, m*n-1, &result)
-	return result
+	//result := 0
+	//doUniquePaths(n, m, 0, 0, m*n-1, &result)
+	//return result
+	if m == 0 || n == 0 {
+		return 0
+	}
+	dp := make([]int, m*n+1)
+	dp[1] = 1
+	for i := 2; i <= m; i++ {
+		dp[i] = dp[i-1] + 0
+	}
+	return doUniquePath(m, dp)
 }
 
+// f(j) = sum{f(j - 1)+f(j-cols)}
+func doUniquePath(cols int, dp []int) int {
+	for i := cols + 1; i < len(dp); i++ {
+		// first col don't have left path
+		if i%cols == 1 || cols == 1 {
+			dp[i] = dp[i-cols]
+		} else {
+			dp[i] = dp[i-1] + dp[i-cols]
+		}
+	}
+	return dp[len(dp)-1]
+}
+
+// Recursive
 func doUniquePaths(rows, cols, row, col, finish int, res *int) {
 	if row == rows || col == cols {
 		return
@@ -183,4 +208,93 @@ func doUniquePaths(rows, cols, row, col, finish int, res *int) {
 	}
 	doUniquePaths(rows, cols, row+1, col, finish, res)
 	doUniquePaths(rows, cols, row, col+1, finish, res)
+}
+
+// 63 Unique Paths
+func UniquePathsWithObstacles(obstacleGrid [][]int) int {
+	rows := len(obstacleGrid)
+	cols := len(obstacleGrid[0])
+	if rows == 0 || cols == 0 {
+		return 0
+	}
+	if obstacleGrid[0][0] == 1 {
+		return 0
+	}
+
+	dp := make([][]int, 0)
+	for i := 0; i <= rows; i++ {
+		dp = append(dp, make([]int, cols+1))
+	}
+	dp[1][1] = 1
+	// init
+	for i := 2; i <= cols; i++ {
+		if obstacleGrid[0][i-1] != 1 {
+			dp[1][i] = dp[1][i-1]
+		} else {
+			dp[1][i] = 0
+		}
+	}
+	return doUniquePathsWithObstacles(obstacleGrid, dp, rows, cols)
+}
+
+func doUniquePathsWithObstacles(obstacleGrid, dp [][]int, rows, cols int) int {
+	for i := 2; i <= rows; i++ {
+		for j := 1; j <= cols; j++ {
+			if obstacleGrid[i-1][j-1] == 1 {
+				dp[i][j] = 0
+			} else if j == 1 {
+				dp[i][j] = dp[i-1][j]
+			} else {
+				dp[i][j] = dp[i-1][j] + dp[i][j-1]
+			}
+		}
+	}
+	return dp[rows][cols]
+}
+
+func MinPathSum(grid [][]int) int {
+	rows, cols := len(grid), len(grid[0])
+	if rows == 0 || cols == 0 {
+		return 0
+	}
+	dp := make([][]int, 0)
+	for i := 0; i <= rows; i++ {
+		dp = append(dp, make([]int, cols+1))
+	}
+	for i := 0; i <= cols; i++ {
+		dp[0][i] = -1
+	}
+	for j := 0; j <= rows; j++ {
+		dp[j][0] = -1
+	}
+	dp[1][1] = grid[0][0]
+	for i := 2; i <= cols; i++ {
+		dp[1][i] = dp[1][i-1] + grid[0][i-1]
+	}
+	return doMinPathSum(grid, dp, rows, cols)
+}
+
+func doMinPathSum(grid, dp [][]int, rows, cols int) int {
+	for i := 2; i <= rows; i++ {
+		for j := 1; j <= cols; j++ {
+			if j == 1 {
+				dp[i][j] = grid[i-1][j-1] + dp[i-1][j]
+			} else {
+				dp[i][j] = grid[i-1][j-1] + min(dp[i-1][j], dp[i][j-1])
+			}
+		}
+	}
+	return dp[rows][cols]
+}
+
+func min(a, b int) int {
+	if a == -1 {
+		return b
+	} else if b == -1 {
+		return a
+	} else if a <= b {
+		return a
+	} else {
+		return b
+	}
 }

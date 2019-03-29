@@ -52,4 +52,29 @@ func TestFindDuplicate(t *testing.T) {
 func TestUniquePaths(t *testing.T) {
 	fmt.Println(UniquePaths(3, 2))
 	fmt.Println(UniquePaths(7, 3))
+	fmt.Println(UniquePaths(2, 1))
+	fmt.Println(UniquePaths(1, 2))
+}
+
+func TestUniquePathsWithObstacles(t *testing.T) {
+	input := [][]int{
+		{0, 0, 0},
+		{0, 1, 0},
+		{0, 0, 0},
+	}
+	fmt.Println(UniquePathsWithObstacles(input))
+	input1 := [][]int{
+		{1},
+	}
+	fmt.Println(UniquePathsWithObstacles(input1))
+}
+
+func TestMinPathSum(t *testing.T) {
+	input := [][]int{
+		{1, 3, 1},
+		{1, 5, 1},
+		{4, 2, 1},
+	}
+	fmt.Println(MinPathSum(input))
+
 }

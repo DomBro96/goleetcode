@@ -91,5 +91,10 @@ func TestIsMatch(t *testing.T) {
 	fmt.Println(IsMatch("adceb", "*a*b"))
 	fmt.Println(IsMatch("acdcb", "a*c?b"))
 	fmt.Println(IsMatch("ab", "?*"))
+}
 
+func TestMinDistance(t *testing.T) {
+	fmt.Println(MinDistance("horse", "ros"))
+	fmt.Println(MinDistance("intention", "execution"))
+	fmt.Println(MinDistance("sea", "eat"))
 }

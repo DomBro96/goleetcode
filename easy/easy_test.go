@@ -57,3 +57,12 @@ func TestMissingNumber(t *testing.T) {
 	fmt.Println(MissingNumber(input2))
 	fmt.Println(MissingNumber(input3))
 }
+
+func TestClimbStairs(t *testing.T) {
+	fmt.Println(ClimbStairs(1))
+	fmt.Println(ClimbStairs(2))
+	fmt.Println(ClimbStairs(3))
+	fmt.Println(ClimbStairs(4))
+	fmt.Println(ClimbStairs(5))
+	fmt.Println(ClimbStairs(6))
+}
