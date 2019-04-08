@@ -2,6 +2,7 @@ package medium
 
 import (
 	"fmt"
+	"reflect"
 	"testing"
 )
 
@@ -70,11 +71,55 @@ func TestUniquePathsWithObstacles(t *testing.T) {
 }
 
 func TestMinPathSum(t *testing.T) {
-	input := [][]int{
-		{1, 3, 1},
-		{1, 5, 1},
-		{4, 2, 1},
+	//input := [][]int{
+	//	{1, 3, 1},
+	//	{1, 5, 1},
+	//	{4, 2, 1},
+	//}
+	//fmt.Println(MinPathSum(input))
+	s := "123456789"
+	for i := 0; i < len(s); i++ {
+		fmt.Printf("%d, %s, %v, %v\n", s[i]-'0', reflect.TypeOf(s[i]-'0'), s[i]-'0' > 0, s[i]-'0' < 26)
 	}
-	fmt.Println(MinPathSum(input))
+}
 
+func TestNumDecodings(t *testing.T) {
+	fmt.Println(NumDecodings("12"))
+	fmt.Println(NumDecodings("226"))
+	fmt.Println(NumDecodings("111"))
+	fmt.Println(NumDecodings("10"))
+	fmt.Println(NumDecodings("01"))
+	fmt.Println(NumDecodings("012"))
+	fmt.Println(NumDecodings("12120"))
+	fmt.Println(NumDecodings("1212"))
+}
+
+func TestMakeChild(t *testing.T) {
+	node := &TreeNode{
+		Val:   5,
+		Left:  nil,
+		Right: nil,
+	}
+	node1 := &TreeNode{
+		Val:   6,
+		Left:  nil,
+		Right: nil,
+	}
+	node.Right = node1
+	pNode := node
+	node.Val = 5
+	fmt.Println(pNode.Val)
+	fmt.Println(pNode.Right)
+	fmt.Println(node)
+	node = node.Right
+	fmt.Println(node)
+	fmt.Println(pNode)
+}
+
+func TestNumTrees(t *testing.T) {
+	fmt.Println(NumTrees(1))
+	fmt.Println(NumTrees(2))
+	fmt.Println(NumTrees(3))
+	fmt.Println(NumTrees(4))
+	fmt.Println(NumTrees(5))
 }

@@ -298,3 +298,60 @@ func min(a, b int) int {
 		return b
 	}
 }
+
+// 91 Decode Ways
+func NumDecodings(s string) int {
+	dp := make([]int, len(s)+1)
+	dp[0] = 1
+	if 0 < s[0]-'0' && s[0]-'0' < 10 {
+		dp[1] = 1
+	} else {
+		dp[1] = 0
+	}
+	for i := 2; i <= len(s); i++ {
+		if 1 <= s[i-1]-'0' && s[i-1]-'0' <= 9 {
+			dp[i] += dp[i-1]
+		}
+		front := s[i-2] - '0'
+		if 10 <= front*10+s[i-1]-'0' && front*10+s[i-1]-'0' <= 26 {
+			dp[i] += dp[i-2]
+		}
+	}
+	return dp[len(s)]
+}
+
+// 95 Unique Binary Search Trees II
+type TreeNode struct {
+	Val   int
+	Left  *TreeNode
+	Right *TreeNode
+}
+
+func GenerateTrees(n int) []*TreeNode {
+
+	dp := make([][]*TreeNode, n+1)
+	dp[0] = nil
+	nodes := make([]*TreeNode, 0)
+	node := &TreeNode{
+		Val:   1,
+		Left:  nil,
+		Right: nil,
+	}
+	dp[1] = append(nodes, node)
+	return nil
+}
+
+// 96  Unique Binary Search Trees
+func NumTrees(n int) int {
+	if n < 0 {
+		return 0
+	}
+	dp := make([]int, n+1)
+	dp[0] = 1
+	for i := 1; i <= n; i++ {
+		for j := 1; j <= i; j++ {
+			dp[i] += dp[i-j] * dp[j-1]
+		}
+	}
+	return dp[n]
+}

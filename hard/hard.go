@@ -366,3 +366,16 @@ func min(a, b int) int {
 		return b
 	}
 }
+
+// 87 Scramble String
+func IsScramble(s1 string, s2 string) bool {
+	if len(s1) == 1 {
+		return s1[0] == s2[0]
+	}
+	start1, length1 := 0, len(s1)/2
+	return doIsScramble(s1, s2, start1, length1)
+}
+
+func doIsScramble(s1, s2 string, start, length int) bool {
+
+}

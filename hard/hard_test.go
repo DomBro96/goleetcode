@@ -98,3 +98,14 @@ func TestMinDistance(t *testing.T) {
 	fmt.Println(MinDistance("intention", "execution"))
 	fmt.Println(MinDistance("sea", "eat"))
 }
+
+func TestIsScramble(t *testing.T) {
+	fmt.Println(IsScramble("great", "rgeat"))
+	fmt.Println(IsScramble("great", "rgtae"))
+	fmt.Println(IsScramble("great", "grtae"))
+	fmt.Println(IsScramble("abcde", "caebd"))
+	fmt.Println(IsScramble("aa", "aa"))
+	fmt.Println(IsScramble("ab", "ab"))
+	fmt.Println(IsScramble("abc", "acb"))
+	fmt.Println(IsScramble("abc", "bca"))
+}
